@@ -13,4 +13,12 @@ public class TanqueOrtagonal extends Tanque{
     private float altura;
     private float base;
     
+    
+    public TanqueOrtagonal(){
+        
+    }
+    
+    public void calcularCapacidad(){
+        
+    }
 }

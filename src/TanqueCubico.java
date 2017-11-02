@@ -11,4 +11,12 @@
 public class TanqueCubico extends Tanque{
     
     private float longitud;
+    
+    public TanqueCubico(){
+        
+    }
+    
+    public void calcularCapacidad(){
+        
+    }
 }

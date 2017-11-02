@@ -13,4 +13,11 @@ public class TanqueCilindrico extends Tanque{
     private float base;
     private float altura;
     
+    public TanqueCilindrico(){
+        
+    }
+    
+    public void calcularCapacidad(){
+        
+    }
 }

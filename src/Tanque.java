@@ -8,6 +8,18 @@
  *
  * @author Juan Rodolfo Alonzo
  */
-public class Tanque {
+public abstract class Tanque {
     
+    private int id;
+    private float capacidad;
+    private float dimension;
+    private float cantAgua;
+    private String fechas;
+    private int valvulasEnUso;
+    
+    public Tanque(){
+        
+    }
+    
+    public 
 }
