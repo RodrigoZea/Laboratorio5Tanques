@@ -1,3 +1,9 @@
+
+import com.mongodb.MongoClient;
+import java.util.ArrayList;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +15,16 @@
  * @author Juan Rodolfo Alonzo
  */
 public class CrearTanque_GUI extends javax.swing.JFrame {
-
+    ArrayList<Controles> controls = new ArrayList<>();
+    albearControl ctrl = new albearControl();
+    Connection cn = new Connection();
     /**
      * Creates new form CrearTanque_GUI
      */
     public CrearTanque_GUI() {
         initComponents();
+        hideOptions();
+       
     }
 
     /**
@@ -29,10 +39,19 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        lblL = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        cmbTipo = new javax.swing.JComboBox<>();
+        txtL = new javax.swing.JTextField();
+        lblBC = new javax.swing.JLabel();
+        txtBC = new javax.swing.JTextField();
+        txtAC = new javax.swing.JTextField();
+        lblAC = new javax.swing.JLabel();
+        txtBO = new javax.swing.JTextField();
+        lblBO = new javax.swing.JLabel();
+        txtAO = new javax.swing.JTextField();
+        lblAO = new javax.swing.JLabel();
+        btnCrear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,13 +64,32 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Tipo de Tanque: ");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Longitud de Arista: ");
+        lblL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblL.setText("Longitud de Arista: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ortagonal", "Cubico", "Cilindrico" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubico", "Ortogonal", "Cilindrico" }));
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbTipoActionPerformed(evt);
+            }
+        });
+
+        lblBC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblBC.setText("Base del Cilindro:");
+
+        lblAC.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblAC.setText("Altura del Cilindro:");
+
+        lblBO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblBO.setText("Base Ortogonal:");
+
+        lblAO.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblAO.setText("Altura Ortogonal:");
+
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -61,50 +99,156 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblBC)
+                                            .addComponent(lblL, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(lblAC, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(lblBO, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCrear)
+                                    .addComponent(lblAO)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtL)
+                                .addComponent(txtBC)
+                                .addComponent(txtAC)
+                                .addComponent(txtBO)
+                                .addComponent(txtAO, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1))
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
-                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(lblL)
+                    .addComponent(txtL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBC)
+                    .addComponent(txtBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBO))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAO))
+                .addGap(18, 18, 18)
+                .addComponent(btnCrear)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        showOptions();
+    }//GEN-LAST:event_cmbTipoActionPerformed
 
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(txtId.getText());
+        switch (cmbTipo.getSelectedIndex()){
+            case 0:
+                float longitud = Float.parseFloat(txtL.getText());
+                System.out.println("hola");
+                Tanque tanque = ctrl.crearTanqueCubico(id, 0, longitud);
+                cn.ds.save(tanque);
+                break;
+           // case 1:
+             //   break;
+            case 2:
+                break;
+        }
+    }//GEN-LAST:event_btnCrearActionPerformed
+    
+    public void showOptions(){
+        switch (cmbTipo.getSelectedIndex()){
+            case 0:
+                txtL.setVisible(true);
+                lblL.setVisible(true);
+                
+                txtBO.setVisible(false);
+                lblBO.setVisible(false);
+                txtAO.setVisible(false);
+                lblAO.setVisible(false);
+                txtAC.setVisible(false);
+                lblAC.setVisible(false);
+                txtBC.setVisible(false);
+                lblBC.setVisible(false);
+                break;
+            case 1:
+                txtBO.setVisible(true);
+                lblBO.setVisible(true);
+                txtAO.setVisible(true);
+                lblAO.setVisible(true);
+                
+                txtAC.setVisible(false);
+                lblAC.setVisible(false);
+                txtBC.setVisible(false);
+                lblBC.setVisible(false);
+                txtL.setVisible(false);
+                lblL.setVisible(false);
+                
+                break;
+            case 2:
+                txtAC.setVisible(true);
+                lblAC.setVisible(true);
+                txtBC.setVisible(true);
+                lblBC.setVisible(true);
+                
+                txtL.setVisible(false);
+                lblL.setVisible(false);
+                txtBO.setVisible(false);
+                lblBO.setVisible(false);
+                txtAO.setVisible(false);
+                lblAO.setVisible(false);
+                break;
+        }
+    }
+    public void hideOptions(){
+         txtBO.setVisible(false);
+                lblBO.setVisible(false);
+                txtAO.setVisible(false);
+                lblAO.setVisible(false);
+                txtAC.setVisible(false);
+                lblAC.setVisible(false);
+                txtBC.setVisible(false);
+                lblBC.setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -141,12 +285,21 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblAC;
+    private javax.swing.JLabel lblAO;
+    private javax.swing.JLabel lblBC;
+    private javax.swing.JLabel lblBO;
+    private javax.swing.JLabel lblL;
+    private javax.swing.JTextField txtAC;
+    private javax.swing.JTextField txtAO;
+    private javax.swing.JTextField txtBC;
+    private javax.swing.JTextField txtBO;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtL;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,20 +16,17 @@ public class TanqueCilindrico extends Tanque{
     private float base;
     private float altura;
     
-    public TanqueCilindrico(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
-        this.id = id;
-        this.capacidad = capacidad;
-        this.dimension = dimension;
-        this.cantAgua = cantAgua;
-        this.fechas = fechas;
-        this.valvulasEnUso = valvulasEnUso;
+    public TanqueCilindrico(int id, float capacidad, float dimension, float cantAgua, ArrayList<String> fechas, int valvulasEnUso, float base, float altura){
+       super(id, valvulasEnUso);
+       this.base = base;
+       this.altura = altura;
     }
     
     public void calcularCapacidad(){
         
     }
     
-    public void setBase(){
+    public void setBase(float base){
         this.base = base;
     }
     
@@ -34,7 +34,7 @@ public class TanqueCilindrico extends Tanque{
         return base;
     }
     
-    public void setAltura(){
+    public void setAltura(float altura){
         this.altura = altura;
     }
     

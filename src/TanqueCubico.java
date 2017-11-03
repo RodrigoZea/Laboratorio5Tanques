@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,23 +15,27 @@ public class TanqueCubico extends Tanque{
     
     private float longitud;
     
-    public TanqueCubico(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
-        this.id = id;
-        this.dimension = dimension;
-        this.cantAgua = cantAgua;
-        this.fechas = fechas;
-        this.valvulasEnUso = valvulasEnUso;
+    public TanqueCubico(int id, int valvulasEnUso, float longitud){
+       super(id, valvulasEnUso);
+       this.longitud = longitud;
+       calcularCapacidad();
+       calcularAgua();
     }
     
     public void calcularCapacidad(){
-        longitud * longitud * longitud = capacidad;
+        float capacidadC = (longitud*longitud*longitud);
+        setCapacidad(capacidadC);
     }
     
-    public void setLongitud(){
-        
+    public void calcularAgua(){
+        setCantAgua(getCapacidad());
+    }
+    
+    public void setLongitud(float longitud){
+        this.longitud = longitud;
     }
     
     public float getLongitud(){
-        
+        return longitud;
     }
 }

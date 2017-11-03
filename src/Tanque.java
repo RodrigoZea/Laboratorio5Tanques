@@ -1,3 +1,9 @@
+
+import java.util.ArrayList;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,23 +14,31 @@
  *
  * @author Juan Rodolfo Alonzo
  */
-public abstract class Tanque {
+@Entity
+public abstract class Tanque implements Controles {
     
+    @Id private ObjectId idt;
     private int id;
     private float capacidad;
     private float dimension;
     private float cantAgua;
-    private String fechas;
+    private ArrayList<String> fechas;
     private int valvulasEnUso;
     
     public Tanque(){
         
     }
     
+    public Tanque(int id, int valvulasEnUso){
+        this.id = id;
+        this.valvulasEnUso = valvulasEnUso; 
+    }
+    
     public void abrirValvula(){
         
     }
     
+    @Override
     public void calcularAgua(){
         
     }
@@ -33,7 +47,7 @@ public abstract class Tanque {
         
     }
     
-    public void setID(){
+    public void setID(int id){
         this.id = id;
     }
     
@@ -42,7 +56,7 @@ public abstract class Tanque {
         
     }
     
-    public void setCapacidad(){
+    public void setCapacidad(float capacidad){
         this.capacidad = capacidad;
     }
     
@@ -50,7 +64,7 @@ public abstract class Tanque {
         return capacidad;
     }
     
-    public void setDimension(){
+    public void setDimension(float dimension){
         this.dimension = dimension;
     }
     
@@ -58,7 +72,7 @@ public abstract class Tanque {
         return dimension;
     }
     
-    public void setCantAgua(){
+    public void setCantAgua(float cantAgua){
         this.cantAgua = cantAgua;
     }
     
@@ -66,15 +80,7 @@ public abstract class Tanque {
         return cantAgua;
     }
     
-    public void setFechas(){
-        this.fechas = fechas;
-    }
-    
-    public String getFechas(){
-        return fechas;
-    }
-    
-    public void setValvulasEnUso(){
+    public void setValvulasEnUso(int valvulasEnUso){
         this.valvulasEnUso = valvulasEnUso;
     }
     

@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,13 +17,10 @@ public class TanqueOrtagonal extends Tanque{
     private float altura;
     
     
-    public TanqueOrtagonal(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
-        this.id = id;
-        this.capacidad = capacidad;
-        this.dimension = dimension;
-        this.cantAgua = cantAgua;
-        this.fechas = fechas;
-        this.valvulasEnUso = valvulasEnUso;
+    public TanqueOrtagonal(int id, float capacidad, float cantAgua, int valvulasEnUso, float base, float altura){
+        super(id, valvulasEnUso);
+        this.base = base;
+        this.altura = altura;
     }
     
     public void calcularCapacidad(){
