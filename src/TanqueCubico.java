@@ -14,7 +14,6 @@ public class TanqueCubico extends Tanque{
     
     public TanqueCubico(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
         this.id = id;
-        this.capacidad = capacidad;
         this.dimension = dimension;
         this.cantAgua = cantAgua;
         this.fechas = fechas;
@@ -22,7 +21,7 @@ public class TanqueCubico extends Tanque{
     }
     
     public void calcularCapacidad(){
-        
+        longitud * longitud * longitud = capacidad;
     }
     
     public void setLongitud(){
