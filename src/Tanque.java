@@ -21,5 +21,65 @@ public abstract class Tanque {
         
     }
     
-    public 
+    public void abrirValvula(){
+        
+    }
+    
+    public void calcularAgua(){
+        
+    }
+    
+    public void restaurarAgua(){
+        
+    }
+    
+    public void setID(){
+        this.id = id;
+    }
+    
+    public int getID(){
+        return id;
+        
+    }
+    
+    public void setCapacidad(){
+        this.capacidad = capacidad;
+    }
+    
+    public float getCapacidad(){
+        return capacidad;
+    }
+    
+    public void setDimension(){
+        this.dimension = dimension;
+    }
+    
+    public float getDimension(){
+        return dimension;
+    }
+    
+    public void setCantAgua(){
+        this.cantAgua = cantAgua;
+    }
+    
+    public float getCantAgua(){
+        return cantAgua;
+    }
+    
+    public void setFechas(){
+        this.fechas = fechas;
+    }
+    
+    public String getFechas(){
+        return fechas;
+    }
+    
+    public void setValvulasEnUso(){
+        this.valvulasEnUso = valvulasEnUso;
+    }
+    
+    public int getValvulasEnUso(){
+        return valvulasEnUso;
+    }
+    
 }

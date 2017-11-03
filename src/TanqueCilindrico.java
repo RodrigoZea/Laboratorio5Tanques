@@ -13,11 +13,32 @@ public class TanqueCilindrico extends Tanque{
     private float base;
     private float altura;
     
-    public TanqueCilindrico(){
-        
+    public TanqueCilindrico(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
+        this.id = id;
+        this.capacidad = capacidad;
+        this.dimension = dimension;
+        this.cantAgua = cantAgua;
+        this.fechas = fechas;
+        this.valvulasEnUso = valvulasEnUso;
     }
     
     public void calcularCapacidad(){
         
+    }
+    
+    public void setBase(){
+        this.base = base;
+    }
+    
+    public float getBase(){
+        return base;
+    }
+    
+    public void setAltura(){
+        this.altura = altura;
+    }
+    
+    public float getAltura(){
+        return altura;
     }
 }

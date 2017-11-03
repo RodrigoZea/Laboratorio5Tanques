@@ -12,11 +12,24 @@ public class TanqueCubico extends Tanque{
     
     private float longitud;
     
-    public TanqueCubico(){
-        
+    public TanqueCubico(int id, float capacidad, float dimension, float cantAgua, String fechas, int valvulasEnUso){
+        this.id = id;
+        this.capacidad = capacidad;
+        this.dimension = dimension;
+        this.cantAgua = cantAgua;
+        this.fechas = fechas;
+        this.valvulasEnUso = valvulasEnUso;
     }
     
     public void calcularCapacidad(){
+        
+    }
+    
+    public void setLongitud(){
+        
+    }
+    
+    public float getLongitud(){
         
     }
 }
