@@ -18,12 +18,13 @@ import org.mongodb.morphia.annotations.Id;
 public abstract class Tanque implements Controles {
     
     @Id private ObjectId idt;
-    private int id;
-    private float capacidad;
+    protected int id;
+    protected float capacidad;
     private float dimension;
-    private float cantAgua;
-    private ArrayList<String> fechas;
-    private int valvulasEnUso;
+    protected float cantAgua;
+    protected ArrayList<String> fechas;
+    protected int valvulasEnUso;
+    protected boolean enUso;
     
     public Tanque(){
         
@@ -43,6 +44,12 @@ public abstract class Tanque implements Controles {
         
     }
     
+    public String identificacion(){
+        String id="";
+        id = "Tanque";
+        return id;
+    }
+    
     public void restaurarAgua(){
         
     }
@@ -51,6 +58,7 @@ public abstract class Tanque implements Controles {
         this.id = id;
     }
     
+    @Override
     public int getID(){
         return id;
         
@@ -88,4 +96,19 @@ public abstract class Tanque implements Controles {
         return valvulasEnUso;
     }
     
+    public void setEnUso(boolean enUso){
+        this.enUso = enUso;
+    }
+    
+    public boolean getEnUso(){
+        return enUso;
+    }
+    
+    public String showDetails(){
+       String cadena="";
+       cadena = "Tanque: " + getID() + "\n" +
+               "Capacidad: " + getCapacidad() + "\n";
+       
+        return cadena;
+    }
 }

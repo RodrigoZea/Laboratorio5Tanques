@@ -10,4 +10,7 @@
  */
 public interface Controles {
    public void calcularAgua(); 
+   public String identificacion();
+   public String showDetails();
+   public int getID();
 }

@@ -16,18 +16,29 @@ public class TanqueOrtagonal extends Tanque{
     private float base;
     private float altura;
     
-    
-    public TanqueOrtagonal(int id, float capacidad, float cantAgua, int valvulasEnUso, float base, float altura){
-        super(id, valvulasEnUso);
-        this.base = base;
-        this.altura = altura;
-    }
-    
-    public void calcularCapacidad(){
+    public TanqueOrtagonal(){
         
     }
     
-    public void setBase(){
+    public TanqueOrtagonal(int id, int valvulasEnUso, float base, float altura){
+        super(id, valvulasEnUso);
+        this.base = base;
+        this.altura = altura;
+        calcularCapacidad();
+        calcularAgua();
+    }
+    
+    public void calcularCapacidad(){
+        float capacidadC = (base*altura);
+        setCapacidad(capacidadC);
+    }
+    
+    @Override
+    public void calcularAgua(){
+        setCantAgua(getCapacidad());
+    }
+    
+    public void setBase(float base){
         this.base = base;
     }
     
@@ -35,7 +46,7 @@ public class TanqueOrtagonal extends Tanque{
         return base;
     }
     
-    public void setAltura(){
+    public void setAltura(float altura){
         this.altura = altura;
     }
     

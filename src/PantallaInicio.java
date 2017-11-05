@@ -12,12 +12,16 @@ import java.util.ArrayList;
  * @author Juan Rodolfo Alonzo
  */
 public class PantallaInicio extends javax.swing.JFrame {
-    ArrayList<Controles> controls = new ArrayList<>();
+    public static ArrayList<Controles> controls = new ArrayList<>();
+    //Connection cn = new Connection();
+     albearControl ctrl = new albearControl();
     /**
      * Creates new form PantallaInicio
      */
     public PantallaInicio() {
         initComponents();
+        getCollections();
+        ctrl.cuanto(controls);
     }
 
     /**
@@ -30,21 +34,22 @@ public class PantallaInicio extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAsignar = new javax.swing.JButton();
         btnTanque = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnReg = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
         jLabel1.setText("Control de Tanques");
 
-        jButton1.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
-        jButton1.setText("Manejo de Tanques");
-
-        jButton2.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
-        jButton2.setText("Asignación de Regiones");
+        btnAsignar.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        btnAsignar.setText("Asignación de Regiones");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
 
         btnTanque.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
         btnTanque.setText("Crear un Tanque");
@@ -54,8 +59,13 @@ public class PantallaInicio extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
-        jButton4.setText("Crear Una Región");
+        btnReg.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        btnReg.setText("Crear Una Región");
+        btnReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,31 +74,28 @@ public class PantallaInicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
+                        .addGap(96, 96, 96)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAsignar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnTanque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(btnReg, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTanque, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(btnReg, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,6 +109,31 @@ public class PantallaInicio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnTanqueActionPerformed
 
+    private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
+        // TODO add your handling code here:
+        CrearRegion_GUI reg = new CrearRegion_GUI();
+        reg.controls = controls;
+        reg.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        // TODO add your handling code here:
+        Asignacion_GUI asi = new Asignacion_GUI();
+        asi.controls2 = controls;
+        asi.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnAsignarActionPerformed
+    
+    public void getCollections(){
+        ctrl.getTanques(controls);
+    }
+    
+    public void salvarEnDb(){
+        ctrl.salvar(controls);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -138,10 +170,9 @@ public class PantallaInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnReg;
     private javax.swing.JButton btnTanque;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

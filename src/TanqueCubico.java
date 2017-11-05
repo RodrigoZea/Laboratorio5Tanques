@@ -15,6 +15,10 @@ public class TanqueCubico extends Tanque{
     
     private float longitud;
     
+    public TanqueCubico(){ 
+        
+    }
+    
     public TanqueCubico(int id, int valvulasEnUso, float longitud){
        super(id, valvulasEnUso);
        this.longitud = longitud;

@@ -22,7 +22,15 @@ import org.mongodb.morphia.Morphia;
 
 public class Connection {
     Datastore ds;
-    /*DB dataBase;
+
+    public Connection(){
+        MongoClient mongo = new MongoClient();
+        Morphia morphia = new Morphia();
+        morphia.map(Tanque.class).map(Region.class);
+        ds = morphia.createDatastore(mongo, "tanques");
+    }
+    
+        /*DB dataBase;
     DBCollection coleccion;
     BasicDBObject document = new BasicDBObject();
     
@@ -37,13 +45,6 @@ public class Connection {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }*/
-    
-    public Connection(){
-        MongoClient mongo = new MongoClient();
-        Morphia morphia = new Morphia();
-        morphia.map(Tanque.class);
-        ds = morphia.createDatastore(mongo, "tanques");
-    }
     
     /*public boolean insertar(Tanque ejemplo){
         document.put("Tanque", ejemplo);

@@ -16,14 +16,26 @@ public class TanqueCilindrico extends Tanque{
     private float base;
     private float altura;
     
-    public TanqueCilindrico(int id, float capacidad, float dimension, float cantAgua, ArrayList<String> fechas, int valvulasEnUso, float base, float altura){
+    public TanqueCilindrico(){
+        
+    }
+    
+    public TanqueCilindrico(int id, int valvulasEnUso, float base, float altura){
        super(id, valvulasEnUso);
        this.base = base;
        this.altura = altura;
+       calcularCapacidad();
+       calcularAgua();
     }
     
     public void calcularCapacidad(){
-        
+        float capacidadC = (float) ((2*Math.PI*base)*altura);
+        setCapacidad(capacidadC);
+    }
+    
+    @Override
+      public void calcularAgua(){
+        setCantAgua(getCapacidad());
     }
     
     public void setBase(float base){
