@@ -1,15 +1,10 @@
 
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author Juan Rodolfo Alonzo
+ * Clase encargada de realizar objetos de tipo Tanque Cilindrico.
+ * @author Rodrigo Zea y Rodolfo Alonzo
+ * @version 02.11.17
  */
 public class TanqueCilindrico extends Tanque{
     
@@ -20,6 +15,13 @@ public class TanqueCilindrico extends Tanque{
         
     }
     
+    /**
+     * crea un nuevo tanque de tipo cilindrico
+     * @param id el id del tanque
+     * @param valvulasEnUso cuantas valvulas tiene en uso
+     * @param base la base del tanque
+     * @param altura la altura del tanque
+     */
     public TanqueCilindrico(int id, int valvulasEnUso, float base, float altura){
        super(id, valvulasEnUso);
        this.base = base;
@@ -28,28 +30,50 @@ public class TanqueCilindrico extends Tanque{
        calcularAgua();
     }
     
+    /**
+     * calcula cuanto puede almacenar el tanque
+     */
     public void calcularCapacidad(){
         float capacidadC = (float) ((2*Math.PI*base)*altura);
         setCapacidad(capacidadC);
     }
     
+    /**
+     * calcula el agua que tiene el tanque, al inicio se asume que está lleno de agua
+     */
     @Override
       public void calcularAgua(){
         setCantAgua(getCapacidad());
     }
     
+     /**
+     * configura la base del tanque
+     * @param base la base del tanque en m3
+     */
     public void setBase(float base){
         this.base = base;
     }
     
+    /**
+     * obtiene la base del tanque
+     * @return base la base del tanque
+     */
     public float getBase(){
         return base;
     }
     
+    /**
+     * configura la altura del tanque
+     * @param altura la altura del tanque
+     */
     public void setAltura(float altura){
         this.altura = altura;
     }
     
+    /**
+     * devuelve la altura del tanque
+     * @return altura la altura del tanque
+     */
     public float getAltura(){
         return altura;
     }

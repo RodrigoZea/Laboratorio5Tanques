@@ -13,10 +13,11 @@ import org.mongodb.morphia.Morphia;
 
 /**
  *
- * @author Juan Rodolfo Alonzo
+ * @author Rodrigo Zea y Rodolfo Alonzo
+ * @version 02.11.17
  */
 public class CrearTanque_GUI extends javax.swing.JFrame {
-    public static ArrayList<Controles> controls = new ArrayList<>();
+    public static ArrayList<Controles> controls3 = new ArrayList<>();
     albearControl ctrl = new albearControl();
     //Connection cn = new Connection();
     /**
@@ -25,7 +26,6 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
     public CrearTanque_GUI() {
         initComponents();
         hideOptions();
-       
     }
 
     /**
@@ -214,56 +214,69 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
+
         int id = Integer.parseInt(txtId.getText());
         Tanque tanque;
         try{
+        if(ctrl.existeID(controls3, id) == false){
+            
+        
         switch (cmbTipo.getSelectedIndex()){
             case 0:
                 float longitud = Float.parseFloat(txtL.getText());
                 tanque = ctrl.crearTanqueCubico(id, 0, longitud);
-                ctrl.agregarALista(tanque, controls);
+                ctrl.agregarALista(tanque, controls3);
                  //cn.ds.save(tanque);
                 break;
             case 1:
                 float baseO = Float.parseFloat(txtBO.getText());
                 float alturaO = Float.parseFloat(txtAO.getText());
                 tanque = ctrl.crearTanqueOrtogonal(id, 0, baseO, alturaO);
-                ctrl.agregarALista(tanque, controls);
+                ctrl.agregarALista(tanque, controls3);
                 // cn.ds.save(tanque);
                 break;
             case 2:
                 float base = Float.parseFloat(txtBC.getText());
                 float altura = Float.parseFloat(txtAC.getText());
                 tanque = ctrl.crearTanqueCilindrico(id, 0, base, altura);
-                ctrl.agregarALista(tanque, controls);
+                ctrl.agregarALista(tanque, controls3);
                  //cn.ds.save(tanque);
                 
                 break;
         }
         
+        }else{
+            JOptionPane.showMessageDialog(null, "Este ID ya existe");
+        }
         
         }catch (Exception ex){
             
         }
+
        
     }//GEN-LAST:event_btnCrearActionPerformed
 
+   
+    
     private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
         // TODO add your handling code here:
         PantallaInicio ini = new PantallaInicio();
         
-        ctrl.salvar(controls);
+        ctrl.salvar(controls3);
         
-        ini.controls = controls;
+        ini.controls = controls3;
         ini.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRegActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ctrl.showTanquesCreados(jTextArea1, controls);
+        ctrl.showTanquesCreados(jTextArea1, controls3);
     }//GEN-LAST:event_jButton1ActionPerformed
     
+    /**
+     * Muestra opciones dependiendo del tipo de tanque que se está creando
+     */
     public void showOptions(){
         switch (cmbTipo.getSelectedIndex()){
             case 0:
@@ -308,6 +321,10 @@ public class CrearTanque_GUI extends javax.swing.JFrame {
                 break;
         }
     }
+
+    /**
+     * Esconde opciones dependiendo del tipo de tanque que se está creando
+     */
     public void hideOptions(){
          txtBO.setVisible(false);
                 lblBO.setVisible(false);

@@ -6,7 +6,8 @@
 
 /**
  *
- * @author MIGUEL
+ * @author Rodrigo Zea y Rodolfo Alonzo
+ * @version 02.11.17
  */
 
 import com.mongodb.BasicDBObject;
@@ -23,6 +24,9 @@ import org.mongodb.morphia.Morphia;
 public class Connection {
     Datastore ds;
 
+    /**
+     * Crea una conexión entre el programa y el servidor de MongoDB
+     */
     public Connection(){
         MongoClient mongo = new MongoClient();
         Morphia morphia = new Morphia();
@@ -30,40 +34,5 @@ public class Connection {
         ds = morphia.createDatastore(mongo, "tanques");
     }
     
-        /*DB dataBase;
-    DBCollection coleccion;
-    BasicDBObject document = new BasicDBObject();
-    
-    public Connection(){
-        try{
-          Mongo mongo = new Mongo("Localhost", 27017);  
-          dataBase = mongo.getDB("lab5");
-          coleccion = dataBase.getCollection("tanques");
-          System.out.println("Connection done");
-            
-        } catch (Exception ex){
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-    
-    /*public boolean insertar(Tanque ejemplo){
-        document.put("Tanque", ejemplo);
-        coleccion.insert(document);
-        return true;
-    }
-    
-    public void mostrar(){
-        DBCursor cursor = coleccion.find();
-        while(cursor.hasNext()){
-            System.out.println(cursor.next());
-        }
-    }
-    
-    public boolean actualizar(Tanque viejo, Tanque nuevo){
-        document.put("Tanque", viejo);
-        BasicDBObject documentNuevo = new BasicDBObject();
-        documentNuevo.put("Tanque", nuevo);
-        coleccion.findAndModify(document, documentNuevo);
-        return true;
-    }*/
+       
 }

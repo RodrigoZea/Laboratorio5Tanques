@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Juan Rodolfo Alonzo
+ * @author Rodrigo Zea y Rodolfo Alonzo
+ * @version 02.11.17
  */
 public class PantallaInicio extends javax.swing.JFrame {
     public static ArrayList<Controles> controls = new ArrayList<>();
@@ -21,7 +22,6 @@ public class PantallaInicio extends javax.swing.JFrame {
     public PantallaInicio() {
         initComponents();
         getCollections();
-        ctrl.cuanto(controls);
     }
 
     /**
@@ -104,7 +104,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     private void btnTanqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTanqueActionPerformed
         // TODO add your handling code here:
         CrearTanque_GUI tanques = new CrearTanque_GUI();
-        tanques.controls = controls;
+        tanques.controls3 = controls;
         tanques.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnTanqueActionPerformed
@@ -126,10 +126,16 @@ public class PantallaInicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAsignarActionPerformed
     
+    /**
+     * Obtiene las colecciones que están salvadas en la base de datos
+     */
     public void getCollections(){
         ctrl.getTanques(controls);
     }
     
+    /**
+     * Salva los datos en la base de datos
+     */
     public void salvarEnDb(){
         ctrl.salvar(controls);
     }

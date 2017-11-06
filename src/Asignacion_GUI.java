@@ -1,5 +1,10 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.text.MaskFormatter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,21 +14,64 @@ import java.util.ArrayList;
 
 /**
  *
- * @author MIGUEL
+ * @author Rodrigo Zea y Rodolfo Alonzo
+ * @version 02.11.17
  */
 public class Asignacion_GUI extends javax.swing.JFrame {
     public static ArrayList<Controles> controls2 = new ArrayList<>();
-       albearControl ctrl = new albearControl();
+    private albearControl ctrl = new albearControl();
+    private Timer timer;
     /**
      * Creates new form Asignacion_GUI
      */
     public Asignacion_GUI() {
         initComponents();
-        ctrl.cuanto(controls2);
+        llenarLista();
+        conseguirInfoCmbx();
+        timer=new Timer(50,new proveer());
+        installMasks();
     }
 
+    /**
+     * Instala mascaras de formato para la fecha
+     */
+    public void installMasks(){
+        try{
+         MaskFormatter dateMask = new MaskFormatter("##/##/##");
+         dateMask.install(fechaP);
+        }catch(Exception e){ 
+            
+        }
+       
+    }
+    
+    /**
+     * Llena las combobox con los IDs de tanques y regiones
+     */
     public void conseguirInfoCmbx(){
         ctrl.llenarComboBoxTanques(cmbTan, controls2);
+        ctrl.llenarComboBoxRegiones(cmbReg, controls2);
+    }
+    
+    /**
+     * LLena la lista con la información proveída en la base de datos
+     */
+    public void llenarLista(){
+        ctrl.getTanques(controls2);
+    }
+    
+    /**
+     * Se inicia el timer y un tanque le provee agua a una región
+     */
+    public class proveer implements ActionListener
+    {
+        public void actionPerformed(ActionEvent evt)
+        {                  
+           int idT = (int) cmbTan.getSelectedItem(); 
+           int idR = (int) cmbReg.getSelectedItem(); 
+           ctrl.proveerAgua(controls2, idT, idR, lblAgua, txtValvulas, txtUso, timer, btnAsignar);
+           
+        }
     }
     
     /**
@@ -40,6 +88,22 @@ public class Asignacion_GUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cmbReg = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tarTan = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tarReg = new javax.swing.JTextArea();
+        btnAsignar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblAgua = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtValvulas = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtUso = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        fechaP = new javax.swing.JFormattedTextField();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +111,11 @@ public class Asignacion_GUI extends javax.swing.JFrame {
         jLabel1.setText("Asignar Tanques a Regiones");
 
         cmbTan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        cmbTan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTanActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Tanque:");
@@ -54,7 +123,56 @@ public class Asignacion_GUI extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Región:");
 
-        cmbReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        cmbReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRegActionPerformed(evt);
+            }
+        });
+
+        tarTan.setColumns(20);
+        tarTan.setRows(5);
+        jScrollPane1.setViewportView(tarTan);
+
+        tarReg.setColumns(20);
+        tarReg.setRows(5);
+        jScrollPane2.setViewportView(tarReg);
+
+        btnAsignar.setText("Asignar");
+        btnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Provición de Agua:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel2.setText("Agua por Satisfacer:");
+
+        lblAgua.setText("Agua");
+
+        jLabel7.setText("m3");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel6.setText("Válvulas en uso:");
+
+        txtValvulas.setText("0");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        jLabel8.setText("Tanque en uso:");
+
+        txtUso.setText("Falso");
+
+        jLabel9.setText("Fecha:");
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,35 +181,131 @@ public class Asignacion_GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRegresar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbTan, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(30, 30, 30)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(cmbReg, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(133, Short.MAX_VALUE))
+                            .addComponent(cmbReg, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAgua)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValvulas))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUso))))
+                    .addComponent(btnAsignar)
+                    .addComponent(jLabel9)
+                    .addComponent(fechaP, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbTan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(btnRegresar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(lblAgua)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtValvulas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtUso)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbTan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAsignar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fechaP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbTanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTanActionPerformed
+        // TODO add your handling code here:
+        int id = (int) cmbTan.getSelectedItem();
+        ctrl.buscarTanque(id, controls2, tarTan);
+    }//GEN-LAST:event_cmbTanActionPerformed
+
+    private void cmbRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRegActionPerformed
+        // TODO add your handling code here:
+        int id = (int) cmbReg.getSelectedItem();
+        ctrl.buscarRegion(id, controls2, tarReg, lblAgua);
+    }//GEN-LAST:event_cmbRegActionPerformed
+
+    private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+        // TODO add your handling code here:
+        if (cmbTan.getItemCount() > 0 && cmbReg.getItemCount() > 0 && !"".equals(fechaP.getText())){
+            String fecha = fechaP.getText();
+            int id = (int) cmbTan.getSelectedItem();
+            
+            ctrl.agregarFecha(id, controls2, fecha);
+            timer.start();
+            btnAsignar.setEnabled(false);
+        }else{
+            JOptionPane.showMessageDialog(null, "Cree un Tanque o una Región, por favor");
+        }
+    }//GEN-LAST:event_btnAsignarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        PantallaInicio ini = new PantallaInicio();
+        
+        ctrl.salvar(controls2);
+        
+        ini.controls = controls2;
+        ini.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,10 +343,26 @@ public class Asignacion_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsignar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cmbReg;
     private javax.swing.JComboBox<String> cmbTan;
+    private javax.swing.JFormattedTextField fechaP;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAgua;
+    private javax.swing.JTextArea tarReg;
+    private javax.swing.JTextArea tarTan;
+    private javax.swing.JLabel txtUso;
+    private javax.swing.JLabel txtValvulas;
     // End of variables declaration//GEN-END:variables
 }
