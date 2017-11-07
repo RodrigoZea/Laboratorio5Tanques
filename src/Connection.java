@@ -10,14 +10,14 @@
  * @version 02.11.17
  */
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
+//import com.mongodb.BasicDBObject;
+//import com.mongodb.DB;
+//import com.mongodb.DBCollection;
+//import com.mongodb.DBCursor;
+//import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
